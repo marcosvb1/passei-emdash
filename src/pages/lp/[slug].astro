@@ -1,0 +1,24 @@
+---
+// Full-bleed landing pages: serve the raw HTML stored in the `lp`
+// collection verbatim, with no site chrome (no Base layout). The page returns
+// a Response directly from the frontmatter, so Astro does not wrap the markup.
+import { getEmDashEntry, decodeSlug } from "emdash";
+
+const slug = decodeSlug(Astro.params.slug);
+
+if (!slug) {
+	return new Response("Not found", { status: 404 });
+}
+
+const { entry } = await getEmDashEntry("lp", slug);
+
+if (!entry || !entry.data?.html) {
+	return new Response("Not found", { status: 404 });
+}
+
+return new Response(entry.data.html, {
+	headers: {
+		"content-type": "text/html; charset=utf-8",
+	},
+});
+---
