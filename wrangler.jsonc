@@ -17,6 +17,10 @@
 			"bucket_name": "passei-sites","preview_bucket_name": "passei-sites",
 		},
 	],
+	// Cloudflare Images binding (per-Worker, not the zone /cdn-cgi/image toggle)
+	"images": {
+		"binding": "IMAGES",
+	},
 	// Worker Loader for plugin sandboxing
 	"worker_loaders": [
 		{
