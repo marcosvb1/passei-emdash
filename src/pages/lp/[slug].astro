@@ -16,9 +16,26 @@ if (!entry || !entry.data?.html) {
 	return new Response("Not found", { status: 404 });
 }
 
-return new Response(entry.data.html, {
+const page = new Response(entry.data.html, {
 	headers: {
 		"content-type": "text/html; charset=utf-8",
 	},
 });
+
+// Route EmDash media <img> through the Worker's on-the-fly optimizer by
+// appending ?w=<intrinsic width> (capped). AVIF/WebP negotiation + edge cache
+// happen in src/worker.ts. The stored HTML is never modified — we rewrite the
+// response stream at the edge, so this applies to every LP automatically.
+const MEDIA_PREFIX = "/_emdash/api/media/file/";
+return new HTMLRewriter()
+	.on("img", {
+		element(el) {
+			const src = el.getAttribute("src");
+			if (!src || !src.includes(MEDIA_PREFIX) || src.includes("?")) return;
+			const w = Number(el.getAttribute("width"));
+			const width = Number.isFinite(w) && w > 0 ? Math.min(w, 1536) : 1000;
+			el.setAttribute("src", `${src}?w=${width}`);
+		},
+	})
+	.transform(page);
 ---
