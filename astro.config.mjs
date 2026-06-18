@@ -25,9 +25,6 @@ export default defineConfig({
 			sandboxed: [webhookNotifier, auditLog],
 			sandboxRunner: sandbox(),
 			marketplace: "https://marketplace.emdashcms.com",
-			experimental: {
-				registry: "https://registry.emdashcms.com",
-			},
 		}),
 	],
 	fonts: [
