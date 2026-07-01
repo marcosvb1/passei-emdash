@@ -10,7 +10,39 @@ const portableTextBlocks = [
 		label: "LP · Hero",
 		category: "Marketing",
 		icon: "link",
-		fields: [{ type: "text_input", action_id: "headline", label: "Headline" }],
+		fields: [
+			{ type: "text_input", action_id: "eyebrow", label: "Eyebrow" },
+			{ type: "text_input", action_id: "headline", label: "Headline (aceita <br>, <em>)" },
+			{ type: "text_input", action_id: "lead", label: "Lead", multiline: true },
+			{ type: "text_input", action_id: "cta_primary_label", label: "CTA primary label" },
+			{ type: "text_input", action_id: "cta_primary_url", label: "CTA primary URL" },
+			{ type: "text_input", action_id: "cta_secondary_label", label: "CTA secondary label" },
+			{ type: "text_input", action_id: "cta_secondary_url", label: "CTA secondary URL" },
+			{ type: "text_input", action_id: "media_url", label: "Media URL (imagem/vídeo)" },
+		],
+	},
+	{
+		type: "marketing.pricing",
+		label: "LP · Pricing",
+		category: "Marketing",
+		icon: "link",
+		fields: [
+			{ type: "text_input", action_id: "eyebrow", label: "Eyebrow" },
+			{ type: "text_input", action_id: "heading", label: "Heading" },
+			{ type: "text_input", action_id: "lead", label: "Lead" },
+			{ type: "text_input", action_id: "plan_slugs", label: "Plan slugs (separados por vírgula)" },
+		],
+	},
+	{
+		type: "marketing.faq",
+		label: "LP · FAQ",
+		category: "Marketing",
+		icon: "link",
+		fields: [
+			{ type: "text_input", action_id: "eyebrow", label: "Eyebrow" },
+			{ type: "text_input", action_id: "heading", label: "Heading" },
+			{ type: "text_input", action_id: "items", label: "Itens (uma linha: Pergunta | Resposta)", multiline: true },
+		],
 	},
 ];
 
