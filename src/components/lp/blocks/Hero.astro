@@ -1,0 +1,48 @@
+---
+interface Props {
+	value: {
+		eyebrow?: string;
+		headline: string;
+		lead?: string;
+		cta_primary_label?: string;
+		cta_primary_url?: string;
+		cta_secondary_label?: string;
+		cta_secondary_url?: string;
+		media_url?: string;
+	};
+}
+const { value } = Astro.props;
+const isVideo = !!value.media_url && /\.(mp4|webm)(\?|$)/i.test(value.media_url);
+---
+<section class="hero">
+	<div class="hero__blobs">
+		<div class="hero__blob-v"></div>
+		<div class="hero__blob-o"></div>
+	</div>
+	<div class="hero__grid">
+		<div class="reveal">
+			{value.eyebrow && <div class="hero__pill">{value.eyebrow}</div>}
+			<h1 class="hero__title" set:html={value.headline} />
+			{value.lead && <p class="hero__lead">{value.lead}</p>}
+			<div class="hero__cta-row">
+				{value.cta_primary_url && (
+					<a href={value.cta_primary_url} class="btn btn--primary shimmer" style="border-radius:var(--radius-md)">{value.cta_primary_label}</a>
+				)}
+				{value.cta_secondary_url && (
+					<a href={value.cta_secondary_url} class="btn btn--outline-light" style="border-radius:var(--radius-md)">{value.cta_secondary_label}</a>
+				)}
+			</div>
+		</div>
+		{value.media_url && (
+			<div class="reveal">
+				<div class="hero__media float">
+					{isVideo ? (
+						<video autoplay muted loop playsinline src={value.media_url}></video>
+					) : (
+						<img src={value.media_url} alt="" style="width:100%;display:block" />
+					)}
+				</div>
+			</div>
+		)}
+	</div>
+</section>

@@ -1,0 +1,36 @@
+---
+interface Props { value: { eyebrow?: string; heading?: string; items?: string } }
+const { value } = Astro.props;
+
+// One item per line: "Question | Answer". The accordion toggle JS lives in
+// LandingShell (carried from the reference), which binds any .faq-toggle.
+const items = (value.items ?? "")
+	.split("\n")
+	.map((l) => l.trim())
+	.filter(Boolean)
+	.map((l) => {
+		const [q, ...a] = l.split("|");
+		return { q: (q ?? "").trim(), a: a.join("|").trim() };
+	})
+	.filter((it) => it.q);
+---
+<section id="faq" class="sec" style="background:var(--surface-page)">
+	<div class="faq">
+		<div class="reveal" style="text-align:center;margin-bottom:var(--space-12)">
+			{value.eyebrow && <span class="eyebrow eyebrow--accent">{value.eyebrow}</span>}
+			{value.heading && <h2 class="heading-lg" style="margin-top:var(--space-4);font-size:clamp(30px,4vw,48px)">{value.heading}</h2>}
+		</div>
+		<div class="reveal">
+			{items.map((it) => (
+				<div class="faq__item">
+					<button class="faq-toggle">
+						<span class="q">{it.q}</span>
+						<span class="faq-icon faq-plus">+</span>
+						<span class="faq-icon faq-minus">−</span>
+					</button>
+					<div class="faq-body"><div>{it.a}</div></div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

@@ -1,0 +1,78 @@
+---
+import { getEmDashCollection } from "emdash";
+
+interface Props {
+	value: { eyebrow?: string; heading?: string; lead?: string; plan_slugs?: string };
+}
+const { value } = Astro.props;
+
+const slugs = (value.plan_slugs ?? "")
+	.split(",")
+	.map((s) => s.trim())
+	.filter(Boolean);
+
+// Plans are the single source of pricing truth. Fetch all and pick/order by the
+// slugs the editor referenced (entry.id is the slug).
+const { entries } = await getEmDashCollection("plans", { limit: 100 });
+const bySlug = new Map(entries.map((e) => [e.id, e]));
+const plans = slugs.map((s) => bySlug.get(s)).filter(Boolean) as typeof entries;
+const featured = plans.find((p) => p.data.featured);
+const rest = plans.filter((p) => !p.data.featured);
+---
+<section id="planos" class="sec" style="background:var(--surface-page)">
+	<div class="sec__inner">
+		<div class="reveal" style="text-align:center;margin-bottom:3.5rem">
+			{value.eyebrow && <span class="eyebrow eyebrow--brand">{value.eyebrow}</span>}
+			{value.heading && <h2 class="heading-lg" style="margin-top:var(--space-4)">{value.heading}</h2>}
+			{value.lead && <p class="sec__lead" style="margin-left:auto;margin-right:auto">{value.lead}</p>}
+		</div>
+
+		{featured && (
+			<div class="plan-featured reveal">
+				<div class="plan-featured__blob"></div>
+				{featured.data.badge && <div class="plan-featured__pop">{featured.data.badge}</div>}
+				<div class="plan-featured__grid">
+					<div>
+						<h4>{featured.data.name}</h4>
+						{featured.data.tagline && <p class="plan-featured__sub">{featured.data.tagline}</p>}
+						<div class="plan-featured__feats">
+							{(featured.data.features ?? []).map((f: string) => <div>{f}</div>)}
+						</div>
+					</div>
+					<div class="plan-price">
+						{featured.data.price_old && <p class="plan-price__old">{featured.data.price_old}</p>}
+						<div class="plan-price__row"><span class="big">{featured.data.price_installments}</span></div>
+						{featured.data.price_pix && <p class="plan-price__pix">{featured.data.price_pix}</p>}
+						<a href={featured.data.cta_url} target="_blank" rel="noopener noreferrer">
+							<button class="btn--accent-block shimmer">{featured.data.cta_label}</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		)}
+
+		<div class="plans-grid reveal">
+			{rest.map((p) => (
+				<div class="plan-card">
+					<div class="plan-card__head">
+						<div>
+							<h4>{p.data.name}</h4>
+							{p.data.tagline && <p class="plan-card__tagline">{p.data.tagline}</p>}
+						</div>
+						<div class="plan-card__price">
+							{p.data.price_old && <p class="plan-card__old">{p.data.price_old}</p>}
+							<div class="plan-card__prow"><span class="big">{p.data.price_installments}</span></div>
+							{p.data.price_pix && <p class="plan-card__pix">{p.data.price_pix}</p>}
+						</div>
+					</div>
+					<ul class="plan-card__feats">
+						{(p.data.features ?? []).map((f: string) => <li>{f}</li>)}
+					</ul>
+					<a href={p.data.cta_url} target="_blank" rel="noopener noreferrer">
+						<button class="btn--brand-outline">{p.data.cta_label}</button>
+					</a>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

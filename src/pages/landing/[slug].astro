@@ -1,0 +1,15 @@
+---
+import { getEmDashEntry } from "emdash";
+import LandingShell from "../../layouts/LandingShell.astro";
+import MarketingBlocks from "../../components/lp/MarketingBlocks.astro";
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect("/404");
+
+const { entry, cacheHint } = await getEmDashEntry("landing_pages", slug);
+if (!entry) return Astro.redirect("/404");
+Astro.cache.set(cacheHint);
+---
+<LandingShell title={entry.data.title}>
+	<MarketingBlocks value={entry.data.content ?? []} />
+</LandingShell>

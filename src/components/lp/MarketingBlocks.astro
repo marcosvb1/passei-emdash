@@ -1,0 +1,20 @@
+---
+import { PortableText } from "emdash/ui";
+import Hero from "./blocks/Hero.astro";
+import Pricing from "./blocks/Pricing.astro";
+import Faq from "./blocks/Faq.astro";
+
+// Maps marketing block `_type`s to their Astro renderers. The plugin declares
+// the editing side (slash menu + Block Kit forms); this map is the rendering
+// side. Keep the two in sync by `_type`.
+interface Props {
+	value: unknown[];
+}
+const { value } = Astro.props;
+const types = {
+	"marketing.hero": Hero,
+	"marketing.pricing": Pricing,
+	"marketing.faq": Faq,
+};
+---
+<PortableText value={value} components={{ types }} />
