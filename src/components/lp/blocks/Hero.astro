@@ -14,6 +14,15 @@ interface Props {
 }
 const { node: value } = Astro.props;
 const isVideo = !!value.media_url && /\.(mp4|webm)(\?|$)/i.test(value.media_url);
+
+// The headline uses set:html for <br>/<em> only. Escape everything, then
+// restore just those two tags — so arbitrary markup pasted into the field
+// (script, img onerror, ...) is rendered inert rather than executed.
+const headlineHtml = (value.headline ?? "")
+	.replace(/&/g, "&amp;")
+	.replace(/</g, "&lt;")
+	.replace(/>/g, "&gt;")
+	.replace(/&lt;(\/?(?:br|em))\s*\/?&gt;/gi, "<$1>");
 ---
 <section class="hero">
 	<div class="hero__blobs">
@@ -23,7 +32,7 @@ const isVideo = !!value.media_url && /\.(mp4|webm)(\?|$)/i.test(value.media_url)
 	<div class="hero__grid">
 		<div class="reveal">
 			{value.eyebrow && <div class="hero__pill">{value.eyebrow}</div>}
-			<h1 class="hero__title" set:html={value.headline} />
+			<h1 class="hero__title" set:html={headlineHtml} />
 			{value.lead && <p class="hero__lead">{value.lead}</p>}
 			<div class="hero__cta-row">
 				{value.cta_primary_url && (

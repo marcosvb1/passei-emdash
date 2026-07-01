@@ -11,10 +11,10 @@ interface Props {
 	value: unknown[];
 }
 const { value } = Astro.props;
-const type = {
+const blockComponents = {
 	"marketing.hero": Hero,
 	"marketing.pricing": Pricing,
 	"marketing.faq": Faq,
 };
 ---
-<PortableText value={value} components={{ type }} />
+<PortableText value={value} components={{ type: blockComponents }} />

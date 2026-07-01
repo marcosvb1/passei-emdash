@@ -13,7 +13,7 @@ const items = (value.items ?? "")
 		const [q, ...a] = l.split("|");
 		return { q: (q ?? "").trim(), a: a.join("|").trim() };
 	})
-	.filter((it) => it.q);
+	.filter((it) => it.q && it.a);
 ---
 <section id="faq" class="sec" style="background:var(--surface-page)">
 	<div class="faq">

@@ -12,13 +12,31 @@ const slugs = (value.plan_slugs ?? "")
 	.map((s) => s.trim())
 	.filter(Boolean);
 
-// Plans are the single source of pricing truth. Fetch all and pick/order by the
-// slugs the editor referenced (entry.id is the slug).
-const { entries } = await getEmDashCollection("plans", { limit: 100 });
+// Plans are the single source of pricing truth. `plans` is a small collection,
+// so fetch-all + pick-by-slug avoids depending on where:{slug} filtering.
+const { entries, cacheHint } = await getEmDashCollection("plans", { limit: 200 });
+// Bubble the plans query's cache hint — the route only sets the landing_pages
+// entry's hint, so without this a plan edit wouldn't invalidate cached LPs.
+Astro.cache?.set(cacheHint);
+
 const bySlug = new Map(entries.map((e) => [e.id, e]));
 const plans = slugs.map((s) => bySlug.get(s)).filter(Boolean) as typeof entries;
 const featured = plans.find((p) => p.data.featured);
 const rest = plans.filter((p) => !p.data.featured);
+
+// Features is a free-form `json` field; guard against non-array editor input.
+const featList = (p: (typeof entries)[number]) =>
+	(Array.isArray(p.data.features) ? p.data.features : []) as string[];
+
+// Surface editor mistakes (blank or typo'd slugs) in dev instead of a silent
+// empty pricing section.
+if (import.meta.env.DEV) {
+	if (!slugs.length) console.warn("[marketing.pricing] plan_slugs is empty");
+	else {
+		const missing = slugs.filter((s) => !bySlug.has(s));
+		if (missing.length) console.warn(`[marketing.pricing] unresolved plan slugs: ${missing.join(", ")}`);
+	}
+}
 ---
 <section id="planos" class="sec" style="background:var(--surface-page)">
 	<div class="sec__inner">
@@ -37,7 +55,7 @@ const rest = plans.filter((p) => !p.data.featured);
 						<h4>{featured.data.name}</h4>
 						{featured.data.tagline && <p class="plan-featured__sub">{featured.data.tagline}</p>}
 						<div class="plan-featured__feats">
-							{(featured.data.features ?? []).map((f: string) => <div>{f}</div>)}
+							{featList(featured).map((f) => <div>{f}</div>)}
 						</div>
 					</div>
 					<div class="plan-price">
@@ -67,7 +85,7 @@ const rest = plans.filter((p) => !p.data.featured);
 						</div>
 					</div>
 					<ul class="plan-card__feats">
-						{(p.data.features ?? []).map((f: string) => <li>{f}</li>)}
+						{featList(p).map((f) => <li>{f}</li>)}
 					</ul>
 					<a href={p.data.cta_url} target="_blank" rel="noopener noreferrer">
 						<button class="btn--brand-outline">{p.data.cta_label}</button>
