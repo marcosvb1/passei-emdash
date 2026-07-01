@@ -35,6 +35,9 @@ importers:
       '@emdash-cms/plugin-webhook-notifier':
         specifier: ^0.2.0
         version: 0.2.0(emdash@0.25.1(@astrojs/react@5.0.7(@types/node@25.9.3)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(yaml@2.9.0))(@atcute/identity@2.0.0(@atcute/lexicons@2.0.1)(typescript@6.0.3))(@date-fns/tz@1.5.0)(@floating-ui/dom@1.7.6)(@tiptap/extensions@3.26.1(@tiptap/core@3.26.1(@tiptap/pm@3.26.1))(@tiptap/pm@3.26.1))(@tiptap/pm@3.26.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(astro@6.4.6(@types/node@25.9.3)(rollup@4.62.0)(yaml@2.9.0))(date-fns@4.4.0)(echarts@6.1.0)(prosemirror-model@1.25.8)(prosemirror-state@1.4.4)(prosemirror-view@1.41.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.3))
+      '@passei/lp-blocks':
+        specifier: workspace:*
+        version: link:packages/lp-blocks
       astro:
         specifier: ^6.3.0
         version: 6.4.6(@types/node@25.9.3)(rollup@4.62.0)(yaml@2.9.0)
@@ -57,6 +60,12 @@ importers:
       wrangler:
         specifier: ^4.95.0
         version: 4.100.0(@cloudflare/workers-types@4.20260613.1)
+
+  packages/lp-blocks:
+    dependencies:
+      emdash:
+        specifier: '*'
+        version: 0.25.1(@astrojs/react@5.0.7(@types/node@25.9.3)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(yaml@2.9.0))(@atcute/identity@2.0.0(@atcute/lexicons@2.0.1)(typescript@6.0.3))(@date-fns/tz@1.5.0)(@floating-ui/dom@1.7.6)(@tiptap/extensions@3.26.1(@tiptap/core@3.26.1(@tiptap/pm@3.26.1))(@tiptap/pm@3.26.1))(@tiptap/pm@3.26.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(astro@6.4.6(@types/node@25.9.3)(rollup@4.62.0)(yaml@2.9.0))(date-fns@4.4.0)(echarts@6.1.0)(prosemirror-model@1.25.8)(prosemirror-state@1.4.4)(prosemirror-view@1.41.9)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.3)
 
 packages:
 

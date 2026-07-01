@@ -5,6 +5,7 @@ import { colorPlugin } from "@emdash-cms/plugin-color";
 import { embedsPlugin } from "@emdash-cms/plugin-embeds";
 import { formsPlugin } from "@emdash-cms/plugin-forms";
 import { featuredImageStudioPlugin } from "@devondragon/emdash-plugin-featured-image-studio";
+import { lpBlocksPlugin } from "@passei/lp-blocks";
 import { defineConfig, fontProviders } from "astro/config";
 import emdash from "emdash/astro";
 
@@ -20,7 +21,7 @@ export default defineConfig({
 		emdash({
 			database: d1({ binding: "DB", session: "auto" }),
 			storage: r2({ binding: "MEDIA" }),
-			plugins: [formsPlugin(), embedsPlugin(), colorPlugin(), featuredImageStudioPlugin()],
+			plugins: [formsPlugin(), embedsPlugin(), colorPlugin(), featuredImageStudioPlugin(), lpBlocksPlugin()],
 			sandboxRunner: sandbox(),
 			marketplace: "https://marketplace.emdashcms.com",
 		}),

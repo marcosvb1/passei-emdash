@@ -18,6 +18,7 @@
     "@astrojs/cloudflare": "^13.5.3",
     "@astrojs/react": "^5.0.0",
     "@devondragon/emdash-plugin-featured-image-studio": "^0.2.2",
+    "@passei/lp-blocks": "workspace:*",
     "@emdash-cms/cloudflare": "^0.25.1",
     "@emdash-cms/plugin-audit-log": "^0.2.0",
     "@emdash-cms/plugin-color": "^0.2.0",
