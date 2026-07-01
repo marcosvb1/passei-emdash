@@ -63,6 +63,91 @@
 					"searchable": true
 				}
 			]
+		},
+		{
+			"slug": "plans",
+			"label": "Plans",
+			"labelSingular": "Plan",
+			"supports": [
+				"drafts",
+				"revisions"
+			],
+			"fields": [
+				{
+					"slug": "name",
+					"label": "Name",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "badge",
+					"label": "Badge",
+					"type": "string"
+				},
+				{
+					"slug": "tagline",
+					"label": "Tagline",
+					"type": "string"
+				},
+				{
+					"slug": "price_installments",
+					"label": "Installments price",
+					"type": "string"
+				},
+				{
+					"slug": "price_pix",
+					"label": "PIX price",
+					"type": "string"
+				},
+				{
+					"slug": "price_old",
+					"label": "Old price",
+					"type": "string"
+				},
+				{
+					"slug": "features",
+					"label": "Features",
+					"type": "json"
+				},
+				{
+					"slug": "cta_label",
+					"label": "CTA label",
+					"type": "string"
+				},
+				{
+					"slug": "cta_url",
+					"label": "CTA URL",
+					"type": "string"
+				},
+				{
+					"slug": "featured",
+					"label": "Featured",
+					"type": "boolean"
+				}
+			]
+		},
+		{
+			"slug": "landing_pages",
+			"label": "Landing Pages",
+			"labelSingular": "Landing Page",
+			"supports": [
+				"drafts",
+				"revisions",
+				"seo"
+			],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true
+				},
+				{
+					"slug": "content",
+					"label": "Content",
+					"type": "portableText"
+				}
+			]
 		}
 	],
 	"taxonomies": [
@@ -273,6 +358,91 @@
 		}
 	],
 	"content": {
+		"plans": [
+			{
+				"id": "plan-enem-quest-pro",
+				"slug": "enem-quest-pro",
+				"status": "published",
+				"data": {
+					"name": "ENEM Quest+ PRO",
+					"badge": "MAIS POPULAR",
+					"tagline": "A experiência completa de aprovação.",
+					"price_installments": "12x R$ 59,90",
+					"price_pix": "ou R$ 599,00 no PIX",
+					"price_old": "De R$ 1.437,60",
+					"features": [
+						"Tudo do MED! PRO",
+						"12 meses de acesso",
+						"Cadernão: Linguagens + Humanas",
+						"Cadernão: Ciências + Matemática",
+						"Frete grátis para todo o Brasil",
+						"QR code em cada questão"
+					],
+					"cta_label": "Assinar Agora",
+					"cta_url": "https://pay.passeicursos.com.br/pay/enem-quest-pro-2-cadernoes-enem-plataforma-passei",
+					"featured": true
+				}
+			},
+			{
+				"id": "plan-passei-pro",
+				"slug": "passei-pro",
+				"status": "published",
+				"data": {
+					"name": "Passei! PRO",
+					"tagline": "Acesso à plataforma e plano básico.",
+					"price_installments": "12x R$ 29,90",
+					"price_pix": "ou R$ 299,90 PIX",
+					"price_old": "R$ 717,60",
+					"features": [
+						"12 meses de acesso + Aulas completas",
+						"Banco de questões",
+						"2 correções de redação/mês",
+						"Aulas ao vivo semanais"
+					],
+					"cta_label": "Selecionar Plano",
+					"cta_url": "https://passeicursos.com.br/passeipro/",
+					"featured": false
+				}
+			}
+		],
+		"landing_pages": [
+			{
+				"id": "lp-exemplo",
+				"slug": "exemplo",
+				"status": "published",
+				"data": {
+					"title": "Exemplo",
+					"content": [
+						{
+							"_type": "marketing.hero",
+							"_key": "hero",
+							"eyebrow": "Método exclusivo para o 800+",
+							"headline": "Tudo que<br>o <em>ENEM</em><br>exige, em<br>um só lugar.",
+							"lead": "Plataforma com método, material físico e banco de questões. Uma decisão.",
+							"cta_primary_label": "Quero Minha Aprovação",
+							"cta_primary_url": "#planos",
+							"cta_secondary_label": "Como funciona?",
+							"cta_secondary_url": "#planos"
+						},
+						{
+							"_type": "marketing.pricing",
+							"_key": "planos",
+							"eyebrow": "Planos",
+							"heading": "Escolha seu Plano de Batalha",
+							"lead": "Investimento que retorna em aprovação.",
+							"plan_slugs": "enem-quest-pro, passei-pro"
+						},
+						{
+							"_type": "marketing.faq",
+							"_key": "faq",
+							"eyebrow": "Dúvidas",
+							"heading": "Perguntas Frequentes",
+							"items": "O caderno físico tem custo de frete? | O frete é grátis para todo o Brasil.\nPor quanto tempo terei acesso? | 12 meses a partir da confirmação do pagamento.\nO banco de questões é só do ENEM? | Não — inclui FUVEST, UNICAMP, UNESP, UERJ e outros."
+						}
+					]
+				}
+			}
+		],
 		"pages": [
 			{
 				"id": "about",

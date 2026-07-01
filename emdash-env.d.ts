@@ -5,6 +5,19 @@
 
 import type { ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
 
+export interface LandingPage {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  content?: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Page {
   id: string;
   slug: string | null;
@@ -18,12 +31,33 @@ export interface Page {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Plan {
+  id: string;
+  slug: string | null;
+  status: string;
+  name: string;
+  badge?: string;
+  tagline?: string;
+  price_installments?: string;
+  price_pix?: string;
+  price_old?: string;
+  features?: unknown;
+  cta_label?: string;
+  cta_url?: string;
+  featured?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Post {
   id: string;
   slug: string | null;
   status: string;
   title: string;
-  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number };
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
   content?: PortableTextBlock[];
   excerpt?: string;
   createdAt: Date;
@@ -35,7 +69,9 @@ export interface Post {
 
 declare module "emdash" {
   interface EmDashCollections {
+    landing_pages: LandingPage;
     pages: Page;
+    plans: Plan;
     posts: Post;
   }
 }
