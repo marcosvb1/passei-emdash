@@ -1,6 +1,7 @@
 ---
-interface Props { value: { eyebrow?: string; heading?: string; items?: string } }
-const { value } = Astro.props;
+// astro-portabletext passes the block data as `node`; alias to `value`.
+interface Props { node: { eyebrow?: string; heading?: string; items?: string } }
+const { node: value } = Astro.props;
 
 // One item per line: "Question | Answer". The accordion toggle JS lives in
 // LandingShell (carried from the reference), which binds any .faq-toggle.

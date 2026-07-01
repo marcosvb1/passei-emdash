@@ -1,10 +1,11 @@
 ---
 import { getEmDashCollection } from "emdash";
 
+// astro-portabletext passes the block data as `node`; alias to `value`.
 interface Props {
-	value: { eyebrow?: string; heading?: string; lead?: string; plan_slugs?: string };
+	node: { eyebrow?: string; heading?: string; lead?: string; plan_slugs?: string };
 }
-const { value } = Astro.props;
+const { node: value } = Astro.props;
 
 const slugs = (value.plan_slugs ?? "")
 	.split(",")

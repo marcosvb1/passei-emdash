@@ -1,6 +1,7 @@
 ---
+// astro-portabletext passes the block data as `node`; alias to `value`.
 interface Props {
-	value: {
+	node: {
 		eyebrow?: string;
 		headline: string;
 		lead?: string;
@@ -11,7 +12,7 @@ interface Props {
 		media_url?: string;
 	};
 }
-const { value } = Astro.props;
+const { node: value } = Astro.props;
 const isVideo = !!value.media_url && /\.(mp4|webm)(\?|$)/i.test(value.media_url);
 ---
 <section class="hero">
